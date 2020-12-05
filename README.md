@@ -5,7 +5,7 @@ A simple Laravel cms to built websites.
 WIP
 
 Features:
-- [:checkmark:] UI: Bootstrap
+- [:checkbox:] UI: Bootstrap
 - [] Contact form with Recaptcha Support
 - [] Admin Dashboard to view messages from contact form.
 - [] Email notification to site owner about new messages.
