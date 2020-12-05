@@ -6,7 +6,7 @@ WIP
 
 Features:
 - [:heavy_check_mark:] UI: Bootstrap
-- [] Contact form with Recaptcha Support
+- [:heavy_check_mark:] Contact form with Recaptcha Support
 - [] Admin Dashboard to view messages from contact form.
 - [] Email notification to site owner about new messages.
 - [] Custom subject options for contact form.
