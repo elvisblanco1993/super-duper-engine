@@ -56,8 +56,11 @@
                         <label for="subject">{{ __('Subject') }}</label>
                         <select name="subject" id="subject" class="custom-select @error('subject') is-invalid @enderror" aria-describedby="helpSubject">
                             {{-- Make this dynamic on the database --}}
-                            <option value="1">1</option>
-                            <option value="2">2</option>
+                            @forelse (App\Models\Subject::all() as $subject)
+                                <option value="{{ $subject->value }}">{{ $subject->name }}</option>
+                            @empty
+                                <option value="" disabled>Error: No subjects available. Please contact the site owner.</option>
+                            @endforelse
                         </select>
                         @error('name')
                             <small id="helpSubject" class="text-danger">{{ $message }}</small>

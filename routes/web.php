@@ -21,7 +21,9 @@ Route::get('/', function () {
 Route::get('contact', [\App\Http\Controllers\ContactController::class, 'index'])->name('contact');
 Route::post('contact', [\App\Http\Controllers\ContactController::class, 'save'])->name('contact');
 
-Auth::routes();
+Auth::routes([
+    'register' => false // Disable new account registration
+]);
 
 /**
  * Display the dashboard.
@@ -42,3 +44,25 @@ Route::get('/messages/{message}/view', [App\Http\Controllers\MessageController::
  * Message settings.
  */
 Route::get('/messages/settings', [App\Http\Controllers\MessageController::class, 'settings'])->name('message-settings');
+
+/**
+ * Delete message.
+ */
+Route::delete('messages/{message}', [App\Http\Controllers\MessageController::class, 'delete']);
+
+/**
+ * Save new subject.
+ * This will add new subjects to the contact form's subjecy item.
+ */
+Route::post('messages/settings', [App\Http\Controllers\MessageController::class, 'message_settings_add_subject'])->name('message-settings-add-subject');
+
+/**
+ * Delete subject from list
+ */
+Route::delete('/messages/settings/subject/{subject}', [App\Http\Controllers\MessageController::class, 'message_settings_delete_subject'])->name('message-settings-delete-subject');
+
+/**
+ * Save email where notifications will be sent to.
+ */
+Route::post('/settings/email/save', [App\Http\Controllers\GlobalSettingsController::class, 'settings_add_email'])->name('settings-add-email');
+

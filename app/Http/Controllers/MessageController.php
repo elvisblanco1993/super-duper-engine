@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Message;
+use App\Models\Subject;
 use Illuminate\Http\Request;
 
 class MessageController extends Controller
@@ -17,7 +18,7 @@ class MessageController extends Controller
      */
     public function index()
     {
-        return view('app.messages', [
+        return view('app.messages.index', [
             'messages' => Message::all(),
         ]);
     }
@@ -27,7 +28,7 @@ class MessageController extends Controller
      */
     public function show(Message $message)
     {
-        return view('app.message', [
+        return view('app.messages.show', [
             'name' => $message->name,
             'email' => $message->email,
             'subject' => $message->subject,
@@ -41,15 +42,45 @@ class MessageController extends Controller
      */
     public function delete(Message $message)
     {
-
+        $message->delete();
+        return redirect( route('messages') )->with('message', 'Message successfully deleted.');
     }
 
     /**
      * Settings
      */
     public function settings() {
-        dd(
-            'Hello Settings'
-        );
+        return view('app.messages.settings', [
+            'subjects' => Subject::all(),
+        ]);
+    }
+
+    /**
+     * Save new subject
+     */
+    public function message_settings_add_subject(Request $request) {
+        $request->validate([
+            'subject' => ['required', 'string', 'unique:subjects,name']
+        ]);
+
+        $value = preg_replace('/[^A-Za-z0-9-]+/', '-', strtolower($request->get('subject')));
+
+        $subject = new Subject([
+            'name' => $request->get('subject'),
+            'value' => $value,
+        ]);
+
+        $subject->save();
+
+        return redirect( route('message-settings') )->with('message', 'Subject successfully added.');
+    }
+
+    /**
+     * Delete subject from list
+     */
+    public function message_settings_delete_subject(Subject $subject) {
+        $subject->delete();
+
+        return redirect( route('message-settings') )->with('message', 'Subject successfully deleted.');
     }
 }
