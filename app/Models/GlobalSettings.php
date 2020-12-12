@@ -10,5 +10,6 @@ class GlobalSettings extends Model
     use HasFactory;
     protected $fillable = [
         'email_to',
+        'header_html'
     ];
 }

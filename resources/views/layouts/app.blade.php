@@ -18,6 +18,14 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
+    {{-- Additional HTML --}}
+    @guest
+        @if ( App\Models\GlobalSettings::first())
+            {!! App\Models\GlobalSettings::first()->header_html !!}
+        @endif
+    @endguest
+    {{-- End of Additional HTML --}}
 </head>
 <body>
     <div id="app">

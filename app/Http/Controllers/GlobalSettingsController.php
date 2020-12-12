@@ -14,6 +14,14 @@ class GlobalSettingsController extends Controller
     }
 
     /**
+     * Dislpay Global Settings Screen
+     */
+    public function index()
+    {
+        return view('app.settings.index');
+    }
+
+    /**
      * Save email
      */
     public function settings_add_email(Request $request)
@@ -41,4 +49,35 @@ class GlobalSettingsController extends Controller
 
         return redirect( route('message-settings') )->with('message', 'Email notification settings updated.');
     }
+
+    /**
+     * Save header custom code
+     */
+    public function settings_save_header(Request $request)
+    {
+        $request->validate([
+            'header' => ['required']
+        ]);
+
+        // Settings First Run
+        if (GlobalSettings::count() == 0) {
+            $settings = new GlobalSettings([
+                'header_html' => $request->get('header'),
+            ]);
+
+            $settings->save();
+
+        } else {
+
+            // Grab System Settings (first item in table)
+            $settings = GlobalSettings::first();
+
+            $settings->update([
+                'header_html' => $request->get('header'),
+            ]);
+        }
+
+        return redirect( route('settings') )->with('message', 'Settings saved.');
+    }
+
 }

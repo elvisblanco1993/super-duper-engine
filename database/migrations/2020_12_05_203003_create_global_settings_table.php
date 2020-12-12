@@ -16,6 +16,7 @@ class CreateGlobalSettingsTable extends Migration
         Schema::create('global_settings', function (Blueprint $table) {
             $table->id();
             $table->text('email_to')->nullable(); // Email where all website notifications are going to be sent to.
+            $table->longText('additionalhtml')->nullable();
             $table->timestamps();
         });
     }

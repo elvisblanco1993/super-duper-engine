@@ -66,3 +66,13 @@ Route::delete('/messages/settings/subject/{subject}', [App\Http\Controllers\Mess
  */
 Route::post('/settings/email/save', [App\Http\Controllers\GlobalSettingsController::class, 'settings_add_email'])->name('settings-add-email');
 
+/**
+ * Global Settings screen.
+ */
+Route::get('/settings', [App\Http\Controllers\GlobalSettingsController::class, 'index'])->name('settings');
+
+/**
+ * Save header
+ */
+Route::post('settings-save-header', [App\Http\Controllers\GlobalSettingsController::class, 'settings_save_header'])->name('settings-save-header');
+

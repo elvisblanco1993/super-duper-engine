@@ -20,6 +20,10 @@
                     <li class="nav-item">
                         <a class="nav-link rounded @if(Route::currentRouteName() == 'messages' || Route::currentRouteName() == 'message' ) bg-light border-bottom   @endif" href="{{ route('messages') }}" >{{ __('Messages') }}</a>
                     </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link rounded @if(Route::currentRouteName() == 'settings' || Route::currentRouteName() == 'settings' ) bg-light border-bottom   @endif" href="{{ route('settings') }}" >{{ __('Settings') }}</a>
+                    </li>
                 @endguest
             </ul>
 
@@ -27,6 +31,20 @@
             <ul class="navbar-nav ml-auto">
                 <!-- Authentication Links -->
                 @guest
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="">{{ __('Home') }}</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="">{{ __('About') }}</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="">{{ __('Services') }}</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('contact') }}">{{ __('Contact') }}</a>
+                    </li>
+
                     @if (Route::has('login'))
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
