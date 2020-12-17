@@ -19,7 +19,7 @@ class MessageController extends Controller
     public function index()
     {
         return view('app.messages.index', [
-            'messages' => Message::all(),
+            'messages' => Message::all()->sortByDesc('created_at')->sortBy('read'),
         ]);
     }
 
@@ -28,6 +28,11 @@ class MessageController extends Controller
      */
     public function show(Message $message)
     {
+
+        $message->update([
+            'read' => 1
+        ]);
+
         return view('app.messages.show', [
             'name' => $message->name,
             'email' => $message->email,

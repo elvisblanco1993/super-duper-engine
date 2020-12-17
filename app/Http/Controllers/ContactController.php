@@ -44,7 +44,7 @@ class ContactController extends Controller
         $message->save();
 
         // Send message to site owner if applicable
-        if ( ! is_null( GlobalSettings::first()->email_to )) {
+        if ( GlobalSettings::first() && ! is_null( GlobalSettings::first()->email_to )) {
 
             Mail::to(GlobalSettings::first()->email_to)
                 ->send(new ContactFormNotification($request->get('name'), $request->get('email'), $request->get('phone'), $request->get('subject')));

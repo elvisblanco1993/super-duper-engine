@@ -4,6 +4,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
+
                 @if (session('message'))
                     <div class="alert alert-success alert-dismissible fade show" role="alert">
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -17,6 +18,7 @@
                         {{ session('message') }}
                     </div>
                 @endif
+
                 <div class="card">
                     <div class="card-header d-flex justify-content-between">
                         <div>
@@ -28,10 +30,10 @@
                         </div>
                         <div>
                             <a href="{{ route('messages') }}" class="text-danger" title="Click to close.">
-                                <svg width="1.2em" height="1.2em" viewBox="0 0 16 16" class="bi bi-x-circle" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
-                                    <path fill-rule="evenodd" d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-back" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd" d="M0 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v2h2a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-2H2a2 2 0 0 1-2-2V2zm2-1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H2z"/>
                                 </svg>
+                                {{ __('Back') }}
                             </a>
                         </div>
                     </div>
@@ -39,16 +41,21 @@
                         <h4 class="card-title">{{ __('Contact Form') }}</h4>
                         <form class="form-inline" action="{{ route('message-settings-add-subject') }}" method="post">
                             @csrf
-                            <input class="col-md-6 form-control mr-2 @error('subject') is-invalid @enderror" type="text" name="subject" placeholder="Add subject">
-                            <button type="submit" class="btn btn-primary">Add</button>
+                            <div class="input-group">
+                                <input class="form-control @error('subject') is-invalid @enderror" type="text" name="subject" placeholder="Add subject">
+                                <div class="input-group-append">
+                                    <button type="submit" class="btn btn-outline-primary">{{ __('Save') }}</button>
+                                </div>
+                            </div>
                         </form>
                         @error('subject')
                             <small class="text-danger">{{ $message }}</small>
                         @enderror
-                        <hr>
-                        <ul class="list-group">
+
+                        <br>
+                        <ul class="list-group list-group-flush col-md-4">
                             @forelse ($subjects as $subject)
-                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                <li class="list-group-item py-0 d-flex justify-content-between align-items-center">
                                     {{ $subject->name }}
                                     <form action="{{ '/messages/settings/subject/'.$subject->id }}" method="post">
                                         @csrf
@@ -63,33 +70,38 @@
                                 </li>
                             @empty
 
-                            <li class="list-group-item">
-                                {{__('Hey there! Add some subjects above to see them here.')}}
+                            <li class="list-group-item py-0">
+                                {{ __('Add a subject.') }}
                             </li>
+
+                            @endforelse
                         </ul>
 
-                        @endforelse
 
                         <hr>
                         <h4>{{ __('Email Notifications') }}</h4>
                         <p>Send email notifications from contact form at:</p>
                         <form class="form-inline" action="{{ route('settings-add-email') }}" method="POST">
                             @csrf
-                            <input
-                                class="col-md-6 form-control mr-2 @error('email') is-invalid @enderror"
-                                type="email"
-                                name="email"
-                                placeholder="Enter your email here"
-                                @if ( ! is_null(App\Models\GlobalSettings::first()) )
-                                    value="{{ App\Models\GlobalSettings::first()->email_to }}"
-                                @endif>
-                            <button type="submit" class="btn btn-primary">
-                                @if ( ! is_null(App\Models\GlobalSettings::first()) )
-                                    {{ __('Update') }}
-                                @else
-                                    {{ __('Add') }}
-                                @endif
-                            </button>
+                            <div class="input-group">
+                                <input
+                                    class="form-control @error('email') is-invalid @enderror"
+                                    type="email"
+                                    name="email"
+                                    placeholder="Enter your email here"
+                                    @if ( ! is_null(App\Models\GlobalSettings::first()) )
+                                        value="{{ App\Models\GlobalSettings::first()->email_to }}"
+                                    @endif>
+                                <div class="input-group-append">
+                                    <button type="submit" class="btn btn-outline-primary">
+                                        @if ( ! is_null(App\Models\GlobalSettings::first()) )
+                                            {{ __('Update') }}
+                                        @else
+                                            {{ __('Save') }}
+                                        @endif
+                                    </button>
+                                </div>
+                            </div>
                         </form>
                         @error('email')
                             <small class="text-danger">{{ $message }}</small>

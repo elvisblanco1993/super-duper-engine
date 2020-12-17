@@ -20,6 +20,7 @@ class CreateMessagesTable extends Migration
             $table->string('phone');
             $table->string('subject');
             $table->text('message');
+            $table->boolean('read')->default(0);
             $table->timestamps();
         });
     }

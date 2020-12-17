@@ -55,7 +55,7 @@
                         <tbody>
 
                             @forelse ($messages as $message)
-                                <tr class="align-middle">
+                                <tr class="align-middle @if( ! $message->read ) font-weight-bolder text-primary @endif">
                                     <td class="align-middle">
                                         {{ date('M d, Y H:i a', strtotime($message->created_at)) }}
                                     </td>
@@ -63,20 +63,16 @@
                                         <p class="m-0 text-sm">
                                             {{ $message->name }}
                                         </p>
-                                        <small class="m-0 text-muted">
-                                            {{ $message->email }}
-                                        </small>
                                     </td class="align-middle">
                                     <td class="align-middle">
                                         {{ $message->subject }}
                                     </td>
                                     <td class="align-middle">
                                         <a href="{{ '/messages/'.$message->id.'/view' }}" class="btn btn-sm" title="Click to view message.">
-                                            <svg width="1.2em" height="1.2em" viewBox="0 0 16 16" class="bi bi-envelope-open" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                                <path fill-rule="evenodd" d="M8.47 1.318a1 1 0 0 0-.94 0l-6 3.2A1 1 0 0 0 1 5.4v.818l5.724 3.465L8 8.917l1.276.766L15 6.218V5.4a1 1 0 0 0-.53-.882l-6-3.2zM15 7.388l-4.754 2.877L15 13.117v-5.73zm-.035 6.874L8 10.083l-6.965 4.18A1 1 0 0 0 2 15h12a1 1 0 0 0 .965-.738zM1 13.117l4.754-2.852L1 7.387v5.73zM7.059.435a2 2 0 0 1 1.882 0l6 3.2A2 2 0 0 1 16 5.4V14a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V5.4a2 2 0 0 1 1.059-1.765l6-3.2z"/>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-return-right" viewBox="0 0 16 16">
+                                                <path fill-rule="evenodd" d="M1.5 1.5A.5.5 0 0 0 1 2v4.8a2.5 2.5 0 0 0 2.5 2.5h9.793l-3.347 3.346a.5.5 0 0 0 .708.708l4.2-4.2a.5.5 0 0 0 0-.708l-4-4a.5.5 0 0 0-.708.708L13.293 8.3H3.5A1.5 1.5 0 0 1 2 6.8V2a.5.5 0 0 0-.5-.5z"/>
                                             </svg>
                                         </a>
-
                                         <button class="btn btn-sm" title="Click to delete message." data-toggle="modal" data-target="#confirmdelete{{ $message->id }}">
                                             <svg width="1.2em" height="1.2em" viewBox="0 0 16 16" class="bi bi-trash text-danger" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                                 <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>

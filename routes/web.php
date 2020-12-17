@@ -19,10 +19,10 @@ Route::get('/', function () {
 });
 
 Route::get('contact', [\App\Http\Controllers\ContactController::class, 'index'])->name('contact');
-Route::post('contact', [\App\Http\Controllers\ContactController::class, 'save'])->name('contact');
+Route::post('contact', [\App\Http\Controllers\ContactController::class, 'save'])->name('contact-submit');
 
 Auth::routes([
-    'register' => false // Disable new account registration
+    'register' => true // Disable new account registration
 ]);
 
 /**

@@ -25,7 +25,7 @@
                     </div>
                 @endif
 
-                <form action="{{ route('contact') }}" method="POST" id="form">
+                <form action="{{ route('contact-submit') }}" method="POST" id="form">
                     @csrf
 
                     <div class="form-group">
